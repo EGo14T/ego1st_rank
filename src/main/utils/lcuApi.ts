@@ -5,10 +5,8 @@ export const acceptGame = async (credentials: Credentials) => {
     await createHttp1Request({
       method: "POST",
       url: '/lol-matchmaking/v1/ready-check/accept',
-      body: undefined
     }, credentials)
   } catch (e) {
     console.error(e)
   }
 }
-

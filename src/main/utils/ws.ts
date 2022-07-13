@@ -1,4 +1,5 @@
 import { createHttp1Request, createWebSocketConnection, Credentials } from "league-connect";
+import { acceptGame } from "./lcuApi";
 
 export const wsListen = async (credentials: Credentials) => {
   const ws = await createWebSocketConnection({
@@ -17,6 +18,13 @@ export const wsListen = async (credentials: Credentials) => {
           "type": 'chat'
         }
       }, credentials)
+    }
+  })
+
+  ws.subscribe('/lol-gameflow/v1/gameflow-phase', async (data) => {
+    console.log('gameflow:', data);
+    if (data == 'ReadyCheck') {
+      acceptGame(credentials);
     }
   })
 }

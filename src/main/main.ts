@@ -11,9 +11,14 @@
 import path from 'path';
 import { app, BrowserWindow } from 'electron';
 import { authenticate, Credentials } from 'league-connect';
-import { resolveHtmlPath } from './util';
 import { listenIpc } from './ipc';
-import { wsListen } from './ws';
+import { wsListen } from './utils/ws';
+import { hasClientProcess, startClientExe } from './utils/clientStart';
+import { appConfig } from './utils/config';
+import { resolveHtmlPath } from './utils';
+import Store from "electron-store";
+
+Store.initRenderer()
 
 let mainWindow: BrowserWindow | null = null;
 
@@ -32,9 +37,21 @@ if (isDebug) {
 }
 
 const createWindow = async () => {
-  credentials = await authenticate();
+  // 如果没有启动客户端则启动
+  if (!await hasClientProcess()) {
+    const clientPath = appConfig.get('gameDirectory');
+    // 启动客户端
+    startClientExe(clientPath);
+  }
+
+  // 30s后获取令牌  ws监听
+  setTimeout(async () => {
+    credentials = await authenticate({ awaitConnection: true });
+    appConfig.set('credentials', credentials)
+    wsListen(credentials)
+  }, 30000)
+
   listenIpc();
-  wsListen(credentials);
 
   const RESOURCES_PATH = app.isPackaged
     ? path.join(process.resourcesPath, 'assets')

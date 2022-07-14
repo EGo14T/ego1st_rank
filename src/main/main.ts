@@ -59,14 +59,13 @@ const createWindow = async () => {
   };
 
   mainWindow = new BrowserWindow({
-    show: false,
+    show: true,
     width: 370,
     height: 650,
     icon: getAssetPath('icon.png'),
     frame: false,
     resizable: false,
     transparent: true,
-    backgroundColor: '#0FFF',
     webPreferences: {
       nodeIntegration: false,
       preload: app.isPackaged

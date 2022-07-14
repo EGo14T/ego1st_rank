@@ -16,9 +16,9 @@ import { wsListen } from './utils/ws';
 import { hasClientProcess, startClientExe } from './utils/clientStart';
 import { appConfig } from './utils/config';
 import { resolveHtmlPath } from './utils';
-import Store from "electron-store";
+import Store from 'electron-store';
 
-Store.initRenderer()
+Store.initRenderer();
 
 let mainWindow: BrowserWindow | null = null;
 
@@ -50,9 +50,6 @@ const createWindow = async () => {
   //   appConfig.set('credentials', credentials)
   //   wsListen(credentials)
   // }, 30000)
-
-  // listenIpc();
-
   const RESOURCES_PATH = app.isPackaged
     ? path.join(process.resourcesPath, 'assets')
     : path.join(__dirname, '../../assets');
@@ -90,6 +87,8 @@ const createWindow = async () => {
       mainWindow.show();
     }
   });
+
+  await listenIpc(mainWindow);
 
   mainWindow.on('closed', () => {
     mainWindow = null;

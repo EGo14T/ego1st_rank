@@ -1,50 +1,9 @@
-.container {
-  height: 600px;
+.home {
+  background-color: rgb(255, 182, 182);
+  height: 120px;
+  margin: 8px;
+  border-radius: 10px;
 
-  .header {
-    height: 65px;
-    width: 100%;
-    padding: 16px;
-    -webkit-app-region: drag;
-    user-select: none;
+  padding: 8px;
 
-    display: flex;
-    align-items: center;
-
-    .header-icon {
-      width: 45px;
-    }
-
-    .title {
-      font-family: 'Caroline', sans-serif;
-      font-size: xx-large;
-      font-weight: 1000;
-      margin: 0 8px;
-    }
-
-    .operate-area {
-      margin-left: auto;
-      display: flex;
-      align-items: center;
-
-      :last-child {
-        margin-right: 0 !important;
-      }
-      .operate-btn {
-        margin: 8px;
-        .icon {
-          font-size: large;
-          color: #000;
-          -webkit-app-region: no-drag;
-        }
-      }
-    }
-  }
-
-  .main {
-    background-color: rgb(255, 182, 182);
-    height: 120px;
-    margin: 8px;
-    border-radius: 10px;
-  }
 }

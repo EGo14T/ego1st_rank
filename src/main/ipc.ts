@@ -1,8 +1,7 @@
-import { ipcMain } from "electron";
+import { ipcMain, app, BrowserWindow } from 'electron';
 
-
-export const listenIpc = () => {
-  ipcMain.on('ipc-ttt', async (_, arg) => {
-    console.log(arg);
+export const listenIpc = (mainWindow: BrowserWindow) => {
+  ipcMain.on('mainwin-minimize', async () => {
+    mainWindow.minimize();
   });
-}
+};

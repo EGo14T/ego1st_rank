@@ -38,20 +38,20 @@ if (isDebug) {
 
 const createWindow = async () => {
   // 如果没有启动客户端则启动
-  if (!await hasClientProcess()) {
-    const clientPath = appConfig.get('gameDirectory');
-    // 启动客户端
-    startClientExe(clientPath);
-  }
+  // if (!await hasClientProcess()) {
+  //   const clientPath = appConfig.get('gameDirectory');
+  //   // 启动客户端
+  //   startClientExe(clientPath);
+  // }
 
-  // 30s后获取令牌  ws监听
-  setTimeout(async () => {
-    credentials = await authenticate({ awaitConnection: true });
-    appConfig.set('credentials', credentials)
-    wsListen(credentials)
-  }, 30000)
+  // // 30s后获取令牌  ws监听
+  // setTimeout(async () => {
+  //   credentials = await authenticate({ awaitConnection: true });
+  //   appConfig.set('credentials', credentials)
+  //   wsListen(credentials)
+  // }, 30000)
 
-  listenIpc();
+  // listenIpc();
 
   const RESOURCES_PATH = app.isPackaged
     ? path.join(process.resourcesPath, 'assets')
@@ -63,9 +63,13 @@ const createWindow = async () => {
 
   mainWindow = new BrowserWindow({
     show: false,
-    width: 400,
-    height: 600,
+    width: 370,
+    height: 650,
     icon: getAssetPath('icon.png'),
+    frame: false,
+    resizable: false,
+    transparent: true,
+    backgroundColor: '#0FFF',
     webPreferences: {
       nodeIntegration: false,
       preload: app.isPackaged

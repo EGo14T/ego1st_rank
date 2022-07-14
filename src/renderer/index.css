@@ -1,0 +1,21 @@
+@import '~antd/dist/antd.css';
+@import './static/font/Caroline.css';
+
+body {
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+#root {
+  background: #ffe8ca;
+  margin: 5px;
+  border-radius: 10px;
+}
+
+.icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}

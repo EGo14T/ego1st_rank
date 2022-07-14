@@ -7,7 +7,7 @@ export const wsListen = async (credentials: Credentials) => {
     pollInterval: 0
   })
 
-  ws.subscribe('/lol-chat/v1/conversations/active', async (data, event) => {
+  ws.subscribe('/lol-chat/v1/conversations/active', async (data, _) => {
     const id = data?.id;
     if (id != null) {
       await createHttp1Request({

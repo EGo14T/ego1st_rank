@@ -12,7 +12,7 @@ const MainLayout: React.FC<MainLayoutProps> = (props) => {
         <Header></Header>
       </header>
       <main>
-        <Outlet></Outlet>
+        {/* <Outlet></Outlet> */}
       </main>
     </div>
   );

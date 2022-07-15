@@ -1,6 +1,6 @@
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
 
-export type Channels = 'closed' | 'mainwin-minimize';
+export type Channels = 'closed' | 'mainwin-minimize' | 'mainwin-hide';
 
 contextBridge.exposeInMainWorld('electron', {
   ipcRenderer: {

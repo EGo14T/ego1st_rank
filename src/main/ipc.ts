@@ -1,7 +1,11 @@
-import { ipcMain, app, BrowserWindow } from 'electron';
+import { ipcMain, BrowserWindow } from 'electron';
 
-export const listenIpc = (mainWindow: BrowserWindow) => {
+export const listenIpc = (appWindow: BrowserWindow) => {
   ipcMain.on('mainwin-minimize', async () => {
-    mainWindow.minimize();
+    appWindow.minimize();
+  });
+
+  ipcMain.on('mainwin-hide', async () => {
+    appWindow.hide();
   });
 };

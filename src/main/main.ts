@@ -9,7 +9,7 @@
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, Tray, nativeImage } from 'electron';
 import { authenticate, Credentials } from 'league-connect';
 import { listenIpc } from './ipc';
 import { wsListen } from './utils/ws';
@@ -21,6 +21,7 @@ import Store from 'electron-store';
 Store.initRenderer();
 
 let mainWindow: BrowserWindow | null = null;
+let tray: Tray;
 
 let credentials: Credentials;
 
@@ -32,9 +33,16 @@ if (process.env.NODE_ENV === 'production') {
 const isDebug =
   process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true';
 
-if (isDebug) {
-  require('electron-debug')();
-}
+// if (isDebug) {
+//   require('electron-debug')();
+// }
+
+const getAssetPath = (...paths: string[]): string => {
+  const RESOURCES_PATH = app.isPackaged
+    ? path.join(process.resourcesPath, 'assets')
+    : path.join(__dirname, '../../assets');
+  return path.join(RESOURCES_PATH, ...paths);
+};
 
 const createWindow = async () => {
   // 如果没有启动客户端则启动
@@ -50,14 +58,6 @@ const createWindow = async () => {
   //   appConfig.set('credentials', credentials)
   //   wsListen(credentials)
   // }, 30000)
-  const RESOURCES_PATH = app.isPackaged
-    ? path.join(process.resourcesPath, 'assets')
-    : path.join(__dirname, '../../assets');
-
-  const getAssetPath = (...paths: string[]): string => {
-    return path.join(RESOURCES_PATH, ...paths);
-  };
-
   mainWindow = new BrowserWindow({
     show: true,
     width: 370,
@@ -73,6 +73,8 @@ const createWindow = async () => {
         : path.join(__dirname, '../../.erb/dll/preload.js'),
     },
   });
+
+  app.commandLine.appendSwitch('wm-window-animations-disabled');
 
   mainWindow.loadURL(resolveHtmlPath('index.html'));
 
@@ -94,6 +96,11 @@ const createWindow = async () => {
   });
 };
 
+const createTray = () => {
+  const icon = getAssetPath('trayIcon.png');
+  tray = new Tray(icon);
+};
+
 app.on('window-all-closed', () => {
   // Respect the OSX convention of having the application in memory even
   // after all windows have been closed
@@ -104,6 +111,20 @@ app.on('window-all-closed', () => {
 
 app.disableHardwareAcceleration();
 
+const showMainWindow = () => {
+  if (!mainWindow) {
+    return;
+  }
+  const visible = mainWindow.isVisible();
+  if (!visible) {
+    mainWindow.show();
+    mainWindow.setSkipTaskbar(false);
+  } else {
+    mainWindow.hide();
+    mainWindow.setSkipTaskbar(true);
+  }
+};
+
 app
   .whenReady()
   .then(() => {
@@ -112,6 +133,12 @@ app
       // On macOS it's common to re-create a window in the app when the
       // dock icon is clicked and there are no other windows open.
       if (mainWindow === null) createWindow();
+    });
+  })
+  .then(() => {
+    createTray();
+    tray.on('click', () => {
+      mainWindow?.show();
     });
   })
   .catch(console.log);

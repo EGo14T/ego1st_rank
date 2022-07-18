@@ -1,0 +1,17 @@
+@font-face {
+  font-family: 'Caroline';
+  src: url('./Caroline.otf');
+}
+
+@font-face {
+  font-family: 'MiSans';
+  src: url('./MiSans-Bold.ttf');
+}
+
+.caroline {
+  font-family: 'Caroline', sans-serif;
+}
+
+.miSans {
+  font-family: 'MiSans', sans-serif;
+}

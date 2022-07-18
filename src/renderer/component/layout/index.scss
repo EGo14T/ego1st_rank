@@ -1,5 +1,6 @@
 .container {
-  height: 600px;
+  height: 100%;
+  padding-bottom: 24px;
 
   .header {
     height: 65px;
@@ -16,7 +17,6 @@
     }
 
     .title {
-      font-family: 'Caroline', sans-serif;
       font-size: xx-large;
       font-weight: 1000;
       margin: 0 8px;

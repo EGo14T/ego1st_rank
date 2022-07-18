@@ -9,13 +9,14 @@
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
-import { app, BrowserWindow, Tray, nativeImage } from 'electron';
+import { app, BrowserWindow, Tray } from 'electron';
 import { authenticate, Credentials } from 'league-connect';
 import { listenIpc } from './ipc';
 import { wsListen } from './utils/ws';
 import { hasClientProcess, startClientExe } from './utils/clientStart';
 import { appConfig } from './utils/config';
 import { resolveHtmlPath } from './utils';
+
 import Store from 'electron-store';
 
 Store.initRenderer();
@@ -33,9 +34,9 @@ if (process.env.NODE_ENV === 'production') {
 const isDebug =
   process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true';
 
-// if (isDebug) {
-//   require('electron-debug')();
-// }
+if (isDebug) {
+  require('electron-debug')();
+}
 
 const getAssetPath = (...paths: string[]): string => {
   const RESOURCES_PATH = app.isPackaged
@@ -46,18 +47,21 @@ const getAssetPath = (...paths: string[]): string => {
 
 const createWindow = async () => {
   // 如果没有启动客户端则启动
-  // if (!await hasClientProcess()) {
-  //   const clientPath = appConfig.get('gameDirectory');
-  //   // 启动客户端
-  //   startClientExe(clientPath);
-  // }
+  if (!(await hasClientProcess())) {
+    const clientPath = appConfig.get('gameDirectory');
+    // 启动客户端
+    startClientExe(clientPath);
+  }
 
-  // // 30s后获取令牌  ws监听
-  // setTimeout(async () => {
-  //   credentials = await authenticate({ awaitConnection: true });
-  //   appConfig.set('credentials', credentials)
-  //   wsListen(credentials)
-  // }, 30000)
+  // 30s后获取令牌  ws监听
+  setTimeout(async () => {
+    credentials = await authenticate({
+      awaitConnection: true,
+    });
+
+    appConfig.set('credentials', credentials);
+    wsListen(credentials);
+  }, 1000);
   mainWindow = new BrowserWindow({
     show: true,
     width: 370,
@@ -89,7 +93,7 @@ const createWindow = async () => {
     }
   });
 
-  await listenIpc(mainWindow);
+  listenIpc(mainWindow);
 
   mainWindow.on('closed', () => {
     mainWindow = null;
@@ -110,20 +114,6 @@ app.on('window-all-closed', () => {
 });
 
 app.disableHardwareAcceleration();
-
-const showMainWindow = () => {
-  if (!mainWindow) {
-    return;
-  }
-  const visible = mainWindow.isVisible();
-  if (!visible) {
-    mainWindow.show();
-    mainWindow.setSkipTaskbar(false);
-  } else {
-    mainWindow.hide();
-    mainWindow.setSkipTaskbar(true);
-  }
-};
 
 app
   .whenReady()

@@ -1,9 +1,68 @@
-.home {
-  background-color: rgb(255, 182, 182);
-  height: 120px;
-  margin: 8px;
+.user-card {
+  background-color: rgb(255, 202, 202);
+  height: 90px;
+  margin: 15px;
+  padding: 15px;
   border-radius: 10px;
 
-  padding: 8px;
+  display: flex;
 
+  .avatar {
+    display: flex;
+    align-items: center;
+
+    .avatar-img {
+      width: 60px;
+      border-radius: 50%;
+      -webkit-user-drag: none;
+    }
+  }
+
+  .info {
+    margin-left: 15px;
+    width: 350px;
+    font-weight: 1000;
+
+    .label {
+      border-radius: 12px;
+      user-select: none;
+      text-align: center;
+    }
+
+    .basic-info {
+      display: flex;
+
+      font-size: 16px;
+      :last-child {
+        margin-left: 16px;
+      }
+      .label {
+        background-color: #ffb6b6;
+        color: #5e4444;
+        padding: 0 12px;
+      }
+    }
+
+    .hero-info {
+      font-size: 12px;
+      margin-top: 16px;
+      display: flex;
+      .label {
+        line-height: 20px;
+        background-color: #ffd7a3;
+        color: #745e42;
+        margin-right: 16px;
+        padding: 0 8px;
+      }
+    }
+  }
+}
+
+.charts {
+  background-color: rgb(255, 182, 182);
+  height: 320px;
+  margin: 15px;
+  margin-top: 30px;
+  padding: 8px;
+  border-radius: 10px;
 }

@@ -7,10 +7,10 @@ declare global {
         sendMessage(channel: Channels, args: unknown[]): void;
         send(channel: Channels): void;
         on(
-          channel: string,
+          channel: Channels,
           func: (...args: unknown[]) => void
         ): (() => void) | undefined;
-        once(channel: string, func: (...args: unknown[]) => void): void;
+        once(channel: Channels, func: (...args: unknown[]) => void): void;
       };
     };
   }

@@ -6,6 +6,7 @@ export type Channels =
   | 'mainwin-hide'
   | 'queryCurrentUser'
   | 'init-user-data'
+  | 'init-user-champion-data'
   | 'test';
 
 contextBridge.exposeInMainWorld('electron', {

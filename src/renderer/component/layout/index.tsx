@@ -5,7 +5,7 @@ import './index.scss';
 
 type MainLayoutProps = {};
 
-const MainLayout: React.FC<MainLayoutProps> = (props) => {
+const MainLayout: React.FC<MainLayoutProps> = () => {
   return (
     <div className="container">
       <header>

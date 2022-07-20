@@ -1,22 +1,37 @@
 import React from 'react';
-import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
-import MainLayout from 'renderer/component/layout';
-import Home from 'renderer/component/home';
-import Setting from 'renderer/component/setting';
+import { RouteObject, useRoutes } from 'react-router-dom';
+import MainLayout from '../component/layout';
+import Home from '../component/home';
+import Career from '../component/career';
+import Achievement from '../component/achievement';
 
 type MainRouteProps = {};
 
+const routes: RouteObject[] = [
+  {
+    path: '/',
+    element: <MainLayout />,
+    children: [
+      {
+        element: <Home />,
+        children: [
+          {
+            index: true,
+            element: <Achievement />,
+          },
+          {
+            path: 'ac',
+            element: <Achievement />,
+          },
+          { path: 'ca', element: <Career /> },
+        ],
+      },
+    ],
+  },
+];
+
 const MainRoute: React.FC<MainRouteProps> = () => {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<MainLayout />}>
-          <Route index element={<Home />}></Route>
-          <Route path="/setting" element={<Setting />}></Route>
-        </Route>
-      </Routes>
-    </Router>
-  );
+  return useRoutes(routes);
 };
 
 export default MainRoute;

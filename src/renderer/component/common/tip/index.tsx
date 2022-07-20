@@ -2,7 +2,7 @@ import { Tooltip, TooltipProps } from 'antd';
 import React, { ReactNode } from 'react';
 
 type TipProps = {
-  title: string;
+  title: React.ReactNode | string;
   children: ReactNode;
 };
 

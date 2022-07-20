@@ -18,6 +18,7 @@ import { appConfig } from './utils/config';
 import { resolveHtmlPath } from './utils';
 
 import Store from 'electron-store';
+import { dealSummonerInfo } from './utils/lcuApi';
 
 Store.initRenderer();
 
@@ -58,10 +59,16 @@ const createWindow = async () => {
     credentials = await authenticate({
       awaitConnection: true,
     });
-
     appConfig.set('credentials', credentials);
-    wsListen(credentials);
-  }, 1000);
+    console.log(credentials);
+
+    setTimeout(async () => {
+      wsListen(credentials);
+      const userData = await dealSummonerInfo(credentials);
+      mainWindow?.webContents.send('init-user-data', userData);
+    }, 2000);
+  }, 5000);
+
   mainWindow = new BrowserWindow({
     show: true,
     width: 370,
@@ -103,11 +110,12 @@ const createWindow = async () => {
 const createTray = () => {
   const icon = getAssetPath('trayIcon.png');
   tray = new Tray(icon);
+  tray.on('click', () => {
+    mainWindow?.show();
+  });
 };
 
 app.on('window-all-closed', () => {
-  // Respect the OSX convention of having the application in memory even
-  // after all windows have been closed
   if (process.platform !== 'darwin') {
     app.quit();
   }
@@ -120,15 +128,10 @@ app
   .then(() => {
     createWindow();
     app.on('activate', () => {
-      // On macOS it's common to re-create a window in the app when the
-      // dock icon is clicked and there are no other windows open.
       if (mainWindow === null) createWindow();
     });
   })
   .then(() => {
     createTray();
-    tray.on('click', () => {
-      mainWindow?.show();
-    });
   })
   .catch(console.log);

@@ -6,7 +6,7 @@ import Tip from '../common/tip';
 
 type HeaderProps = {};
 
-const Header: React.FC<HeaderProps> = (props) => {
+const Header: React.FC<HeaderProps> = () => {
   const navigate = useNavigate();
 
   const onClick = (channel: Channels) => {

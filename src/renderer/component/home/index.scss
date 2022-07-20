@@ -1,5 +1,5 @@
 .user-card {
-  background-color: rgb(255, 202, 202);
+  background-color: #ffbcbc;
   height: 90px;
   margin: 15px;
   padding: 15px;
@@ -23,6 +23,10 @@
     width: 350px;
     font-weight: 1000;
 
+    .info-container {
+      height: 60px;
+    }
+
     .label {
       border-radius: 12px;
       user-select: none;
@@ -31,13 +35,12 @@
 
     .basic-info {
       display: flex;
-
       font-size: 16px;
-      :last-child {
-        margin-left: 16px;
-      }
       .label {
-        background-color: #ffb6b6;
+        &:last-child {
+          margin-left: 16px;
+        }
+        background-color: #ffaeae;
         color: #5e4444;
         padding: 0 12px;
       }
@@ -51,7 +54,7 @@
         line-height: 20px;
         background-color: #ffd7a3;
         color: #745e42;
-        margin-right: 16px;
+        margin-right: 10px;
         padding: 0 8px;
       }
     }
@@ -59,10 +62,36 @@
 }
 
 .charts {
-  background-color: rgb(255, 182, 182);
+  background-color: #ffbcbc;
   height: 320px;
   margin: 15px;
   margin-top: 30px;
   padding: 8px;
   border-radius: 10px;
+
+  .tab-area {
+    padding: 8px;
+    display: flex;
+
+    .tab-btn {
+      &:last-child {
+        margin-left: 30px;
+      }
+    }
+
+    .ant-btn-dashed {
+      background-color: #ffaeae;
+      border: 1px dashed rgb(238, 238, 238);
+
+      &:hover {
+        background-color: #ffadad;
+        color: #000;
+      }
+
+      &:focus {
+        background-color: #ffadad;
+        color: #000;
+      }
+    }
+  }
 }

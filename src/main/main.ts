@@ -60,14 +60,14 @@ const createWindow = async () => {
       awaitConnection: true,
     });
     appConfig.set('credentials', credentials);
-    console.log(credentials);
+    // console.log(credentials);
 
     setTimeout(async () => {
       wsListen(credentials);
       const userData = await dealSummonerInfo(credentials);
       mainWindow?.webContents.send('init-user-data', userData);
-    }, 2000);
-  }, 5000);
+    }, 1000);
+  }, 1000);
 
   mainWindow = new BrowserWindow({
     show: true,

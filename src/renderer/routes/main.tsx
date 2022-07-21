@@ -15,15 +15,13 @@ const routes: RouteObject[] = [
       {
         element: <Home />,
         children: [
+          { index: true, element: <Career /> },
+          { path: 'career', element: <Career /> },
           {
             index: true,
+            path: 'achievement',
             element: <Achievement />,
           },
-          {
-            path: 'ac',
-            element: <Achievement />,
-          },
-          { path: 'ca', element: <Career /> },
         ],
       },
     ],

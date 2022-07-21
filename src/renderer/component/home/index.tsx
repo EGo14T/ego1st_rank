@@ -16,17 +16,24 @@ const Home: React.FC<HomeProps> = () => {
 
   useEffect(() => {
     window.electron.ipcRenderer.once('init-user-data', (arg: any) => {
-      const { displayName, summonerLevel, profileIconId, championData } = arg;
+      const {
+        displayName,
+        summonerLevel,
+        profileIconId,
+        championData,
+        rankList,
+      } = arg;
       const avatar = `https://wegame.gtimg.com/g.26-r.c2d3c/helper/lol/assis/images/resources/usericon/${profileIconId}.png`;
       setUserData({
         displayName,
         level: `Lv.${summonerLevel}`,
         avatar,
+        rankList,
       });
       setChampionData(championData);
       setLoading(false);
     });
-  });
+  }, [championData]);
 
   const getChampionData = (): ReactNode[] => {
     const node: ReactNode[] = [];
@@ -74,16 +81,15 @@ const Home: React.FC<HomeProps> = () => {
       <div className="charts miSans ">
         <div className="tab-area">
           <div className="tab-btn">
-            <Button type="dashed" onClick={() => navigate('/ca')}>
+            <Button type="dashed" onClick={() => navigate('/career')}>
               生涯
             </Button>
           </div>
-          <div className="tab-btn" onClick={() => navigate('/ac')}>
+          <div className="tab-btn" onClick={() => navigate('/achievement')}>
             <Button type="dashed">最近战绩</Button>
           </div>
         </div>
-
-        <Outlet></Outlet>
+        <Outlet context={123}></Outlet>
       </div>
     </>
   );

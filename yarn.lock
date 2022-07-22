@@ -1132,7 +1132,7 @@
   resolved "https://registry.npmjs.org/@types/ms/-/ms-0.7.31.tgz"
   integrity sha512-iiUgKzV9AuaEkZqkOLDIvlQiL6ltuZd9tGcW3gwpnX8JbuiuhFlEGmmFXEXkN50Cvq7Os88IY2v0dkDqXYWVgA==
 
-"@types/node-fetch@2":
+"@types/node-fetch@^2.6.2":
   version "2.6.2"
   resolved "https://registry.npmmirror.com/@types/node-fetch/-/node-fetch-2.6.2.tgz#d1a9c5fd049d9415dce61571557104dec3ec81da"
   integrity sha512-DHqhlq5jeESLy19TYhLakJ07kNumXWjcDdxXsLUMJZ6ue8VZJj4kLPQVE/2mdHh3xZziNF1xppu5lwmS53HR+A==
@@ -1288,14 +1288,7 @@
     tapable "^2.2.0"
     webpack "^5"
 
-"@types/ws@^7.4.7":
-  version "7.4.7"
-  resolved "https://registry.npmmirror.com/@types/ws/-/ws-7.4.7.tgz#f7c390a36f7a0679aa69de2d501319f4f8d9b702"
-  integrity sha512-JQbbmxZTZehdc2iszGKs5oC3NFnjeay7mtAWrdt7qNtAVK0g19muApzAy4bm9byz79xa2ZnO/BOBC2R8RC5Lww==
-  dependencies:
-    "@types/node" "*"
-
-"@types/ws@^8.5.1":
+"@types/ws@^8.5.1", "@types/ws@^8.5.3":
   version "8.5.3"
   resolved "https://registry.npmmirror.com/@types/ws/-/ws-8.5.3.tgz#7d25a1ffbecd3c4f2d35068d0b283c037003274d"
   integrity sha512-6YOoWjruKj1uLf3INHH7D3qTXwFfEsg1kf3c0uDdSBJwfa/llkwIjrAGV7j7mVgGNbzTQ3HiHKKDXl6bJPD97w==
@@ -6039,15 +6032,15 @@ lazy-val@^1.0.4, lazy-val@^1.0.5:
   resolved "https://registry.npmjs.org/lazy-val/-/lazy-val-1.0.5.tgz"
   integrity sha512-0/BnGCCfyUMkBpeDgWihanIAF9JmZhHBgUhEqzvf+adhNGLoP6TaiI5oF8oyb3I45P+PcnrqihSf01M0l0G5+Q==
 
-league-connect@6.0.0-rc3:
-  version "6.0.0-rc3"
-  resolved "https://registry.npmmirror.com/league-connect/-/league-connect-6.0.0-rc3.tgz#4538e5e65818083d6ab8fa30382d5c52a40adaf4"
-  integrity sha512-jA+0viR70isqbbUzIOjRIv1fXRirZPH2qy8BrauVeWmoWpy5raYl4ZK8uj91MdxwM5gL61XBXZMjFNas2kJUBw==
+league-connect@6.0.0-rc6:
+  version "6.0.0-rc6"
+  resolved "https://registry.npmmirror.com/league-connect/-/league-connect-6.0.0-rc6.tgz#f5d403c5b8fb95fbe11546d5a0ce06ba478aa997"
+  integrity sha512-ZJMHgqUmX/SaMoYyY+cncSyYCcSeH+2Ex/Qszs5P6h7a2R4FR7AXyX6Xf82gS+ZXP5ZqwoD1aoU6IA2Xeenrdw==
   dependencies:
-    "@types/node-fetch" "2"
-    "@types/ws" "^7.4.7"
-    node-fetch "2"
-    ws "^7.5.8"
+    "@types/node-fetch" "^2.6.2"
+    "@types/ws" "^8.5.3"
+    node-fetch "^2.6.7"
+    ws "^8.8.1"
 
 leven@^3.1.0:
   version "3.1.0"
@@ -6631,7 +6624,7 @@ node-api-version@^0.1.4:
   dependencies:
     semver "^7.3.5"
 
-node-fetch@2:
+node-fetch@^2.6.7:
   version "2.6.7"
   resolved "https://registry.npmmirror.com/node-fetch/-/node-fetch-2.6.7.tgz#24de9fba827e3b4ae44dc8b20256a379160052ad"
   integrity sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==
@@ -9669,7 +9662,7 @@ write-file-atomic@^4.0.1:
     imurmurhash "^0.1.4"
     signal-exit "^3.0.7"
 
-ws@^7.3.1, ws@^7.5.8:
+ws@^7.3.1:
   version "7.5.9"
   resolved "https://registry.npmmirror.com/ws/-/ws-7.5.9.tgz#54fa7db29f4c7cec68b1ddd3a89de099942bb591"
   integrity sha512-F+P9Jil7UiSKSkppIiD94dN07AwvFixvLIj1Og1Rl9GGMuNipJnV9JzjD6XuqmAeiswGvUmNLjr5cFuXwNS77Q==
@@ -9683,6 +9676,11 @@ ws@^8.4.2:
   version "8.5.0"
   resolved "https://registry.npmjs.org/ws/-/ws-8.5.0.tgz"
   integrity sha512-BWX0SWVgLPzYwF8lTzEy1egjhS4S4OEAHfsO8o65WOVsrnSRGaSiUaa9e0ggGlkMTtBlmOpEXiie9RUcBO86qg==
+
+ws@^8.8.1:
+  version "8.8.1"
+  resolved "https://registry.npmmirror.com/ws/-/ws-8.8.1.tgz#5dbad0feb7ade8ecc99b830c1d77c913d4955ff0"
+  integrity sha512-bGy2JzvzkPowEJV++hF07hAD6niYSr0JzBNo/J29WsB57A2r7Wlc1UFcTR9IzrPvuNVO4B8LGqF8qcpsVOhJCA==
 
 xdg-basedir@^4.0.0:
   version "4.0.0"

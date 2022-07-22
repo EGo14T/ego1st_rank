@@ -1,10 +1,9 @@
 .user-card {
-  background-color: #ffbcbc;
+  background-color: var(--base-bg-card-color);
   height: 90px;
   margin: 15px;
   padding: 15px;
   border-radius: 10px;
-
   display: flex;
 
   .avatar {
@@ -36,12 +35,14 @@
     .basic-info {
       display: flex;
       font-size: 16px;
+
       .label {
         &:last-child {
           margin-left: 16px;
         }
-        background-color: #ffaeae;
-        color: #5e4444;
+
+        background-color: var(--base-label-color);
+        color: var(--base-font-color);
         padding: 0 12px;
       }
     }
@@ -50,10 +51,11 @@
       font-size: 12px;
       margin-top: 16px;
       display: flex;
+
       .label {
         line-height: 20px;
-        background-color: #ffd7a3;
-        color: #745e42;
+        background-color: var(--base-label-color);
+        color: var(--base-font-color);
         margin-right: 10px;
         padding: 0 8px;
       }
@@ -62,7 +64,7 @@
 }
 
 .charts {
-  background-color: #ffbcbc;
+  background-color: var(--base-bg-card-color);
   height: 320px;
   margin: 15px;
   margin-top: 30px;
@@ -74,24 +76,15 @@
     display: flex;
 
     .tab-btn {
+      color: var(--base-font-color);
+      border-bottom: 1px solid rgb(0, 0, 0);
+      // cursor: pointer;
+
       &:last-child {
         margin-left: 30px;
+        border-bottom: 1px solid rgb(255, 128, 128);
       }
     }
 
-    .ant-btn-dashed {
-      background-color: #ffaeae;
-      border: 1px dashed rgb(238, 238, 238);
-
-      &:hover {
-        background-color: #ffadad;
-        color: #000;
-      }
-
-      &:focus {
-        background-color: #ffadad;
-        color: #000;
-      }
-    }
   }
 }

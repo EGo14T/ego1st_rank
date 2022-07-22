@@ -31,10 +31,12 @@
         &:last-child {
           margin-right: 0 !important;
         }
+
         margin: 8px;
+
         .icon {
           font-size: large;
-          color: #000;
+          color: var(--base-icon-color);
           -webkit-app-region: no-drag;
         }
       }

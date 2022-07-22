@@ -1,6 +1,6 @@
-import { Button, Spin } from 'antd';
+import { Spin } from 'antd';
 import { ReactNode, useEffect, useState } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import icon from '../../static/img/avatar.png';
 import Tip from '../common/tip';
 import './index.scss';
@@ -11,8 +11,6 @@ const Home: React.FC<HomeProps> = () => {
   const [userData, setUserData] = useState({} as any);
   const [championData, setChampionData] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     window.electron.ipcRenderer.once('init-user-data', (arg: any) => {
@@ -80,14 +78,13 @@ const Home: React.FC<HomeProps> = () => {
       </div>
       <div className="charts miSans ">
         <div className="tab-area">
-          <div className="tab-btn">
-            <Button type="dashed" onClick={() => navigate('/career')}>
-              生涯
-            </Button>
-          </div>
-          <div className="tab-btn" onClick={() => navigate('/achievement')}>
-            <Button type="dashed">最近战绩</Button>
-          </div>
+          <Link to={'/career'} className="tab-btn">
+            生涯
+          </Link>
+
+          <Link to={'/achievement'} className="tab-btn">
+            最近战绩
+          </Link>
         </div>
         <Outlet context={123}></Outlet>
       </div>

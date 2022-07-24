@@ -1,9 +1,15 @@
 import React from 'react';
-import { RouteObject, useRoutes } from 'react-router-dom';
+import {
+  RouteObject,
+  useNavigate,
+  useRoutes,
+  useLocation,
+} from 'react-router-dom';
 import MainLayout from '../component/layout';
 import Home from '../component/home';
 import Career from '../component/career';
 import Achievement from '../component/achievement';
+import Setting from 'renderer/component/setting';
 
 type MainRouteProps = {};
 
@@ -24,11 +30,24 @@ const routes: RouteObject[] = [
           },
         ],
       },
+      {
+        path: 'setting',
+        element: <Setting />,
+      },
     ],
   },
 ];
 
 const MainRoute: React.FC<MainRouteProps> = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  React.useEffect(() => {
+    if (location.pathname == '/') {
+      navigate('/career');
+    }
+  }, [location]);
+
   return useRoutes(routes);
 };
 

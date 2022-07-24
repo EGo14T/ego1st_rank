@@ -48,26 +48,24 @@ const getAssetPath = (...paths: string[]): string => {
 
 const createWindow = async () => {
   // 如果没有启动客户端则启动
-  // if (!(await hasClientProcess())) {
-  //   const clientPath = appConfig.get('gameDirectory');
-  //   // 启动客户端
-  //   startClientExe(clientPath);
-  // }
+  if (!(await hasClientProcess())) {
+    const clientPath = appConfig.get('gameDirectory');
+    // 启动客户端
+    startClientExe(clientPath);
+  }
 
   // 30s后获取令牌  ws监听
-  // setTimeout(async () => {
-  //   credentials = await authenticate({
-  //     awaitConnection: true,
-  //   });
-  //   appConfig.set('credentials', credentials);
-  //   // console.log(credentials);
-
-  //   setTimeout(async () => {
-  //     wsListen(credentials);
-  //     const userData = await dealSummonerInfo(credentials);
-  //     mainWindow?.webContents.send('init-user-data', userData);
-  //   }, 1000);
-  // }, 1000);
+  setTimeout(async () => {
+    credentials = await authenticate({
+      awaitConnection: true,
+    });
+    appConfig.set('credentials', credentials);
+    setTimeout(async () => {
+      wsListen(credentials);
+      const userData = await dealSummonerInfo(credentials);
+      mainWindow?.webContents.send('init-user-data', userData);
+    }, 3210);
+  }, 30000);
 
   mainWindow = new BrowserWindow({
     show: true,

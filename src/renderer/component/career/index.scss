@@ -1,0 +1,31 @@
+.carrer-container {
+  min-height: 160px;
+
+
+  .rank-info {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    margin: 8px;
+    border-bottom: 1px solid rgb(231, 231, 231);
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .rank-title {
+      background: #ffd5d5;
+      padding: 4px 8px;
+      border-radius: 10px;
+      user-select: none;
+    }
+
+    .rank-point {
+      margin-left: auto;
+      background: #ffe0b6;
+      padding: 4px 8px;
+      border-radius: 10px;
+      user-select: none;
+    }
+  }
+}

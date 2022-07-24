@@ -1,7 +1,7 @@
-import careerStore from './component/career/store';
+import userInfoStore from './component/home/store';
 
 const allStores = {
-  careerStore,
+  userInfoStore,
 };
 
 export default allStores;

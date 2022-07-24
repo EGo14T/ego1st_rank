@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Channels } from 'main/preload';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import icon from '../../static/img/icon.png';
 import Tip from '../common/tip';
 
@@ -8,6 +8,9 @@ type HeaderProps = {};
 
 const Header: React.FC<HeaderProps> = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const [currentPath, setCurrentPath] = useState('/career');
 
   const onClick = (channel: Channels) => {
     return () => {
@@ -16,7 +19,13 @@ const Header: React.FC<HeaderProps> = () => {
   };
 
   const toSetting = () => {
-    navigate('/setting');
+    if (location.pathname == '/career') {
+      navigate('/setting');
+      setCurrentPath('/setting');
+    } else {
+      navigate('/career');
+      setCurrentPath('/career');
+    }
   };
 
   return (
@@ -38,7 +47,11 @@ const Header: React.FC<HeaderProps> = () => {
         <div className="operate-btn">
           <Tip title="设置">
             <svg className="icon" aria-hidden="true" onClick={toSetting}>
-              <use xlinkHref="#icon-shezhi-01"></use>
+              {currentPath == '/setting' ? (
+                <use xlinkHref="#icon-fanhui"></use>
+              ) : (
+                <use xlinkHref="#icon-shezhi-01"></use>
+              )}
             </svg>
           </Tip>
         </div>

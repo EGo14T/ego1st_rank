@@ -7,18 +7,14 @@ body {
 }
 
 :root {
-  --base-bg-color: #fff;
-  --base-bg-card-color: #247a79;
-  --base-label-color: #206c6b;
-  --base-font-color: #206c6b;
-  --base-icon-color: #206c6b;
+  --base-bg-color: #ffe8c9;
+  --base-bg-card-color: #ffbaba;
+  --base-label-color: #ffd5d5;
+  --base-font-color: #4e4e4e;
+  --base-icon-color: #000000;
   --base-border-dashed: 1px dashed #fffcf8;
-  --base-high-light-color: #DAD0C2;
+  --base-high-light-color: #dad0c2;
 }
-
-
-
-
 
 #root {
   background: var(--base-bg-color);

@@ -1,17 +1,26 @@
 import { Spin } from 'antd';
-import { ReactNode, useEffect, useState } from 'react';
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { inject, observer } from 'mobx-react';
+import { ReactNode, useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
 import icon from '../../static/img/avatar.png';
+import { UserInfoStoreType } from './types';
+import CustomLink from '../common/customLink';
 import Tip from '../common/tip';
 import './index.scss';
 
-type HomeProps = {};
+type HomeProps = {
+  userInfoStore?: UserInfoStoreType;
+};
 
-const Home: React.FC<HomeProps> = () => {
-  const [userData, setUserData] = useState({} as any);
-  const [championData, setChampionData] = useState([]);
-  const [loading, setLoading] = useState(true);
-
+const Home: React.FC<HomeProps> = (props) => {
+  const {
+    setUserData,
+    setChampionData,
+    setLoading,
+    userData,
+    championData,
+    loading,
+  } = props.userInfoStore!;
   useEffect(() => {
     window.electron.ipcRenderer.once('init-user-data', (arg: any) => {
       const {
@@ -29,6 +38,8 @@ const Home: React.FC<HomeProps> = () => {
         rankList,
       });
       setChampionData(championData);
+      const { setCareerData } = props.userInfoStore!;
+      setCareerData({ rankList });
       setLoading(false);
     });
   }, [championData]);
@@ -78,18 +89,26 @@ const Home: React.FC<HomeProps> = () => {
       </div>
       <div className="charts miSans ">
         <div className="tab-area">
-          <Link to={'/career'} className="tab-btn">
+          <CustomLink
+            to={'/career'}
+            className="tab-btn"
+            activcClsName={'active'}
+          >
             生涯
-          </Link>
+          </CustomLink>
 
-          <Link to={'/achievement'} className="tab-btn">
+          <CustomLink
+            to={'/achievement'}
+            className="tab-btn"
+            activcClsName={'active'}
+          >
             最近战绩
-          </Link>
+          </CustomLink>
         </div>
-        <Outlet context={123}></Outlet>
+        <Outlet></Outlet>
       </div>
     </>
   );
 };
 
-export default Home;
+export default inject('userInfoStore')(observer(Home));

@@ -76,7 +76,14 @@ const queryRankPoint = async (credentials: Credentials): Promise<any> => {
           rankTft.leaguePoints
         } 胜点`;
 
-  return [RANKED_SOLO, RANKED_FLEX_SR, RANKED_TFT];
+  return [
+    {
+      title: '单双排位',
+      point: RANKED_SOLO,
+    },
+    { title: '灵活组排', point: RANKED_FLEX_SR },
+    { title: '云顶之弈', point: RANKED_TFT },
+  ];
 };
 
 // 处理召唤师英雄熟练度数据

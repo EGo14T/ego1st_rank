@@ -18,7 +18,6 @@ import { appConfig } from './utils/config';
 import { resolveHtmlPath } from './utils';
 
 import Store from 'electron-store';
-import { dealSummonerInfo } from './utils/lcuApi';
 
 Store.initRenderer();
 
@@ -54,6 +53,8 @@ const createWindow = async () => {
     startClientExe(clientPath);
   }
 
+  console.log(app.getPath('userData'));
+
   // 30s后获取令牌  ws监听
   setTimeout(async () => {
     credentials = await authenticate({
@@ -62,15 +63,13 @@ const createWindow = async () => {
     appConfig.set('credentials', credentials);
     setTimeout(async () => {
       wsListen(credentials);
-      const userData = await dealSummonerInfo(credentials);
-      mainWindow?.webContents.send('init-user-data', userData);
     }, 3210);
   }, 30000);
 
   mainWindow = new BrowserWindow({
     show: true,
     width: 370,
-    height: 650,
+    height: 500,
     icon: getAssetPath('icon.png'),
     frame: false,
     resizable: false,

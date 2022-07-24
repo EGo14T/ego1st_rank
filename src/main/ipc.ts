@@ -1,4 +1,7 @@
-import { ipcMain, BrowserWindow } from 'electron';
+import { ipcMain, BrowserWindow, IpcMainEvent } from 'electron';
+import { Credentials } from 'league-connect';
+import { appConfig } from './utils/config';
+import { dealSummonerInfo } from './utils/lcuApi';
 
 export const listenIpc = (appWindow: BrowserWindow) => {
   // 最小化窗口
@@ -9,5 +12,33 @@ export const listenIpc = (appWindow: BrowserWindow) => {
   // 关闭窗口至托盘
   ipcMain.on('mainwin-hide', async () => {
     appWindow.hide();
+  });
+
+  ipcMain.on('accept-game', async (_, acceptGame: boolean) => {
+    appConfig.set('acceptGame', acceptGame);
+  });
+
+  ipcMain.on('set-app-store', async (event: IpcMainEvent, ...args: any[]) => {
+    const data = args[0];
+    const [dataName, dataValue] = data;
+    appConfig.set(dataName, dataValue);
+  });
+
+  ipcMain.on('init-user-data', async (event: IpcMainEvent) => {
+    const credentials: Credentials = appConfig.get('credentials');
+    const userData = await dealSummonerInfo(credentials);
+    event.reply('init-user-data', userData);
+  });
+
+  ipcMain.on('get-setting', async (event: IpcMainEvent) => {
+    const acceptGame = appConfig.get('acceptGame');
+    const gameDirectory = appConfig.get('gameDirectory');
+
+    const data = {
+      acceptGame,
+      gameDirectory,
+    };
+
+    event.reply('get-setting', data);
   });
 };

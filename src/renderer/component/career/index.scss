@@ -1,7 +1,6 @@
 .carrer-container {
   min-height: 160px;
 
-
   .rank-info {
     display: flex;
     align-items: center;
@@ -14,7 +13,7 @@
     }
 
     .rank-title {
-      background: #ffd5d5;
+      background: var(--base-label-color);
       padding: 4px 8px;
       border-radius: 10px;
       user-select: none;

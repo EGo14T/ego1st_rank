@@ -1,10 +1,44 @@
 .setting-container {
   background-color: var(--base-bg-card-color);
-  height: 500px;
+  height: 360px;
   margin: 15px;
   padding: 15px;
   border-radius: 10px;
 
+  .setting-item {
+    margin-bottom: 10px;
+    .label {
+      width: 100px;
+    }
 
+    .game-path {
+      display: flex;
+      align-items: center;
+      min-height: 40px;
+    }
 
+    .select-file {
+      width: 150px;
+      text-align: center;
+
+      .ant-upload-select-text {
+        padding-top: 4px;
+        width: 150px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    .accept-game {
+      display: flex;
+      align-items: center;
+      min-height: 40px;
+    }
+
+    .accept-checkbox {
+      width: 100px;
+      text-align: center;
+    }
+  }
 }

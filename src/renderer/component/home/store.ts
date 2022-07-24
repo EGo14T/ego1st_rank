@@ -11,30 +11,28 @@ export class UserInfoStore {
   @observable loading: boolean = true;
 
   @action
-  setCareerData = (careerData: any) => {
-    runInAction(() => {
-      this.careerData = careerData;
-    });
-  };
+  initData = () => {
+    window.electron.ipcRenderer.once('init-user-data', (arg: any) => {
+      const {
+        displayName,
+        summonerLevel,
+        profileIconId,
+        championData,
+        rankList,
+      } = arg;
+      const avatar = `https://wegame.gtimg.com/g.26-r.c2d3c/helper/lol/assis/images/resources/usericon/${profileIconId}.png`;
 
-  @action
-  setUserData = (userData: any) => {
-    runInAction(() => {
-      this.userData = userData;
-    });
-  };
-
-  @action
-  setChampionData = (championData: any[]) => {
-    runInAction(() => {
-      this.championData = championData;
-    });
-  };
-
-  @action
-  setLoading = (loading: boolean) => {
-    runInAction(() => {
-      this.loading = loading;
+      runInAction(() => {
+        this.userData = {
+          displayName,
+          level: `Lv.${summonerLevel}`,
+          avatar,
+          rankList,
+        };
+        this.championData = championData;
+        this.careerData = { rankList };
+        this.loading = false;
+      });
     });
   };
 }

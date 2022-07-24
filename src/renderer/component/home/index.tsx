@@ -13,35 +13,13 @@ type HomeProps = {
 };
 
 const Home: React.FC<HomeProps> = (props) => {
-  const {
-    setUserData,
-    setChampionData,
-    setLoading,
-    userData,
-    championData,
-    loading,
-  } = props.userInfoStore!;
+  const { userData, championData, loading } = props.userInfoStore!;
   useEffect(() => {
-    window.electron.ipcRenderer.once('init-user-data', (arg: any) => {
-      const {
-        displayName,
-        summonerLevel,
-        profileIconId,
-        championData,
-        rankList,
-      } = arg;
-      const avatar = `https://wegame.gtimg.com/g.26-r.c2d3c/helper/lol/assis/images/resources/usericon/${profileIconId}.png`;
-      setUserData({
-        displayName,
-        level: `Lv.${summonerLevel}`,
-        avatar,
-        rankList,
-      });
-      setChampionData(championData);
-      const { setCareerData } = props.userInfoStore!;
-      setCareerData({ rankList });
-      setLoading(false);
-    });
+    if (loading) {
+      const { initData } = props.userInfoStore!;
+      initData && initData();
+      window.electron.ipcRenderer.send('init-user-data');
+    }
   }, [championData]);
 
   const getChampionData = (): ReactNode[] => {

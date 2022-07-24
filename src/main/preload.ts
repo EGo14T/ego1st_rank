@@ -4,14 +4,16 @@ export type Channels =
   | 'closed'
   | 'mainwin-minimize'
   | 'mainwin-hide'
-  | 'queryCurrentUser'
   | 'init-user-data'
-  | 'init-user-champion-data'
+  | 'accept-game'
+  | 'set-game-path'
+  | 'set-app-store'
+  | 'get-setting'
   | 'test';
 
 contextBridge.exposeInMainWorld('electron', {
   ipcRenderer: {
-    sendMessage(channel: Channels, args: unknown[]) {
+    sendMessage(channel: Channels, ...args: any[]) {
       ipcRenderer.send(channel, args);
     },
     send(channel: Channels) {

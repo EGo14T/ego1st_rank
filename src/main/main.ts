@@ -9,22 +9,17 @@
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
-import { app, BrowserWindow, Tray } from 'electron';
-import { authenticate, Credentials } from 'league-connect';
+import { app, BrowserWindow, Menu, Tray } from 'electron';
 import { listenIpc } from './ipc';
-import { wsListen } from './utils/ws';
+import { resolveHtmlPath } from './utils';
 import { hasClientProcess, startClientExe } from './utils/clientStart';
 import { appConfig } from './utils/config';
-import { resolveHtmlPath } from './utils';
-
 import Store from 'electron-store';
 
 Store.initRenderer();
 
 let mainWindow: BrowserWindow | null = null;
 let tray: Tray;
-
-let credentials: Credentials;
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
@@ -52,19 +47,6 @@ const createWindow = async () => {
     // 启动客户端
     startClientExe(clientPath);
   }
-
-  console.log(app.getPath('userData'));
-
-  // 30s后获取令牌  ws监听
-  setTimeout(async () => {
-    credentials = await authenticate({
-      awaitConnection: true,
-    });
-    appConfig.set('credentials', credentials);
-    setTimeout(async () => {
-      wsListen(credentials);
-    }, 3210);
-  }, 30000);
 
   mainWindow = new BrowserWindow({
     show: true,
@@ -110,6 +92,22 @@ const createTray = () => {
   tray.on('click', () => {
     mainWindow?.show();
   });
+
+  const contextMenu = Menu.buildFromTemplate([
+    {
+      label: `显示主页`,
+      click() {
+        mainWindow?.show();
+      },
+    },
+    {
+      label: `退出软件`,
+      click() {
+        app.quit();
+      },
+    },
+  ]);
+  tray.setContextMenu(contextMenu);
 };
 
 app.on('window-all-closed', () => {

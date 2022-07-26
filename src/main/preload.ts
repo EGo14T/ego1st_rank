@@ -5,10 +5,10 @@ export type Channels =
   | 'mainwin-minimize'
   | 'mainwin-hide'
   | 'init-user-data'
-  | 'accept-game'
-  | 'set-game-path'
   | 'set-app-store'
   | 'get-setting'
+  | 'init'
+  | 'init-finished'
   | 'test';
 
 contextBridge.exposeInMainWorld('electron', {

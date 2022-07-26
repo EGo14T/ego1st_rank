@@ -34,6 +34,10 @@ export class UserInfoStore {
         this.loading = false;
       });
     });
+
+    window.electron.ipcRenderer.once('init-finished', () => {
+      window.electron.ipcRenderer.send('init-user-data');
+    });
   };
 }
 

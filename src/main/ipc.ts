@@ -1,7 +1,10 @@
 import { ipcMain, BrowserWindow, IpcMainEvent } from 'electron';
-import { Credentials } from 'league-connect';
 import { appConfig } from './utils/config';
 import { dealSummonerInfo } from './utils/lcuApi';
+import { authenticate, Credentials } from 'league-connect';
+import { wsListen } from './utils/ws';
+
+let credentials: Credentials;
 
 export const listenIpc = (appWindow: BrowserWindow) => {
   // 最小化窗口
@@ -14,11 +17,7 @@ export const listenIpc = (appWindow: BrowserWindow) => {
     appWindow.hide();
   });
 
-  ipcMain.on('accept-game', async (_, acceptGame: boolean) => {
-    appConfig.set('acceptGame', acceptGame);
-  });
-
-  ipcMain.on('set-app-store', async (event: IpcMainEvent, ...args: any[]) => {
+  ipcMain.on('set-app-store', async (_, ...args: any[]) => {
     const data = args[0];
     const [dataName, dataValue] = data;
     appConfig.set(dataName, dataValue);
@@ -38,7 +37,20 @@ export const listenIpc = (appWindow: BrowserWindow) => {
       acceptGame,
       gameDirectory,
     };
-
     event.reply('get-setting', data);
+  });
+
+  ipcMain.on('init', async (event: IpcMainEvent) => {
+    // 获取令牌  ws监听
+    setTimeout(async () => {
+      credentials = await authenticate({
+        awaitConnection: true,
+      });
+      appConfig.set('credentials', credentials);
+      setTimeout(async () => {
+        wsListen(credentials);
+        event.reply('init-finished');
+      }, 3000);
+    }, 1000);
   });
 };

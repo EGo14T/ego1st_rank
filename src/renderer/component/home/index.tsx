@@ -18,7 +18,7 @@ const Home: React.FC<HomeProps> = (props) => {
     if (loading) {
       const { initData } = props.userInfoStore!;
       initData && initData();
-      window.electron.ipcRenderer.send('init-user-data');
+      window.electron.ipcRenderer.send('init');
     }
   }, [championData]);
 
